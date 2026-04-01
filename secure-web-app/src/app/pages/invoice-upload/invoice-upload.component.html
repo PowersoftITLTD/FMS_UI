@@ -1,0 +1,140 @@
+<!-- daily-uploads.component.html -->
+<div class="min-h-screen bg-background dark:bg-gray-900 ">
+  <!-- Animated Background with dark mode -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div
+      class="absolute -top-40 -right-40 w-80 h-80 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl animate-pulse">
+    </div>
+    <div
+      class="absolute -bottom-40 -left-40 w-80 h-80 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl animate-pulse"
+      style="animation-delay: 1s">
+    </div>
+  </div>
+
+  <div
+    class="relative z-10 p-6 lg:p-8 p-card-body text-muted-foreground dark:text-gray-300 font-semibold bg-primary/5 dark:bg-gray-700/80 p-3 text-left">
+    <!-- Header -->
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
+      <div class="flex items-center gap-4">
+        <div
+          class="p-3 rounded-2xl bg-gradient-to-br from-primary to-primary/70 dark:from-primary/80 dark:to-primary/60 shadow-lg shadow-primary/25 dark:shadow-primary/20">
+          <i class="pi pi-file text-primary-foreground dark:text-white text-2xl"></i>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-foreground dark:text-white">
+            Daily Uploads
+          </h1>
+          <p class="text-muted-foreground dark:text-gray-400 text-sm mt-1">Manage and track your invoice uploads</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Card -->
+    <!-- <p-card class="border-border/50 dark:border-gray-700 backdrop-blur-xl shadow-soft dark:shadow-gray-900/30"
+      [style]="{ 'background': 'rgba(var(--card-bg), 0.4)' }" [style]="{'background': 'var(--card-background)'}"
+      [styleClass]="'dark:bg-gray-800/80 bg-card/80'">
+
+      <ng-template pTemplate="body">
+       
+      </ng-template>
+    </p-card> -->
+     <div
+          class="px-4 py-4 p-card-body text-muted-foreground dark:text  -gray-300 font-semibold bg-primary/5 dark:bg-gray-700/80  text-left border ">
+          <div class="flex items-center gap-2 mb-4">
+            <i class="pi pi-filter text-primary dark:text-primary-400"></i>
+            <span class="text-foreground dark:text-white font-medium">Filters</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="space-y-2">
+              <label class="text-sm text-muted-foreground dark:text-gray-400 pl-2">From Date</label>
+              <p-calendar [(ngModel)]="fromDate" [showIcon]="true" dateFormat="dd/mm/yy" inputId="fromDate"
+                [styleClass]="'w-full dark:bg-gray-900/50 dark:border-gray-700 dark:text-white pl-2'">
+              </p-calendar>
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm text-muted-foreground dark:text-gray-400">To Date</label>
+              <p-calendar [(ngModel)]="toDate" [showIcon]="true" dateFormat="dd/mm/yy" inputId="toDate"
+                [styleClass]="'w-full dark:bg-gray-900/50 dark:border-gray-700 dark:text-white'">
+              </p-calendar>
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm text-muted-foreground dark:text-gray-400">Warehouse</label>
+              <p-dropdown [(ngModel)]="selectedWarehouse" [options]="warehouseOptions" optionLabel="label"
+                placeholder="Select warehouse"
+                [styleClass]="'w-full dark:bg-gray-900/50 dark:border-gray-700 dark:text-white'">
+              </p-dropdown>
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm text-muted-foreground dark:text-gray-400">Executive</label>
+              <p-dropdown [(ngModel)]="selectedExecutive" [options]="executiveOptions" optionLabel="label"
+                placeholder="Select executive"
+                [styleClass]="'w-full dark:bg-gray-900/50 dark:border-gray-700 dark:text-white'">
+              </p-dropdown>
+            </div>
+          </div>
+          <p-button (onClick)="viewResults()"
+            class="mt-4 bg-primary hover:bg-primary/90 dark:bg-primary/80 dark:hover:bg-primary text-primary-foreground dark:text-white shadow-lg shadow-primary/25 dark:shadow-primary/20">
+            <i class="pi pi-eye mr-2"></i>
+            View Results
+          </p-button>
+        </div>
+
+    <!-- Table Controls -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 mt-4">
+      <div class="flex items-center gap-3">
+        <span class="text-muted-foreground dark:text-gray-400 text-sm">Show</span>
+        <p-dropdown [(ngModel)]="entriesPerPage" [options]="entriesOptions" optionLabel="label" optionValue="value"
+          [styleClass]="'w-20 bg-card/50 dark:bg-gray-800/50 border-border/50 dark:border-gray-700 text-foreground dark:text-white'">
+        </p-dropdown>
+        <span class="text-muted-foreground dark:text-gray-400 text-sm">entries</span>
+      </div>
+      <div class="relative w-full sm:w-64">
+        <i class="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground dark:text-gray-500"></i>
+        <input pInputText [(ngModel)]="searchQuery" placeholder="Search invoices..."
+          class="pl-10 w-full bg-card/50 dark:bg-gray-800/50 border-border/50 dark:border-gray-700 text-foreground dark:text-white placeholder:text-muted-foreground dark:placeholder:text-gray-500 focus:border-primary/50 dark:focus:border-primary">
+      </div>
+    </div>
+
+    <!-- Data Table -->
+    <!-- <p-card
+      class=" bg-card/80 dark:bg-gray-800/80 border-border/50 dark:border-gray-700 backdrop-blur-xl shadow-soft dark:shadow-gray-900/30 overflow-hidden"
+      [style]="{ 'background': 'rgba(var(--card-bg), 0.4)' }"> -->
+
+      
+        <app-invoice-table [columns]="columns" [data]="warehouseDetails" (onViewDetails)="onView($event)">
+        </app-invoice-table>
+
+      <div
+        class=""> <!--p-card-body text-muted-foreground dark:text-gray-300 font-semibold bg-primary/5 dark:bg-gray-700/80 p-3 text-left-->
+
+
+      </div>
+    <!-- </p-card> -->
+
+    <!-- Pagination -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-6">
+      <p class="text-muted-foreground dark:text-gray-400 text-sm">
+        Showing 1 to {{mockData.length}} of {{mockData.length}} entries
+      </p>
+      <div class="flex items-center gap-2">
+        <p-button (onClick)="previousPage()" icon="pi pi-chevron-left" [text]="true" severity="secondary"
+          class="w-full [&>button]:w-full bg-card/50 dark:bg-gray-800/50 border-border/50 dark:border-gray-700 text-muted-foreground dark:text-gray-400 hover:bg-accent dark:hover:bg-gray-700 hover:text-foreground dark:hover:text-white">
+          Previous
+        </p-button>
+        <p-button class="bg-primary dark:bg-primary/80 text-primary-foreground dark:text-white min-w-[40px]">
+          1
+        </p-button>
+        <p-button (onClick)="nextPage()" icon="pi pi-chevron-right" iconPos="right" [text]="true" severity="secondary"
+          class="w-full [&>button]:w-full bg-card/50 dark:bg-gray-800/50 border-border/50 dark:border-gray-700 text-muted-foreground dark:text-gray-400 hover:bg-accent dark:hover:bg-gray-700 hover:text-foreground dark:hover:text-white">
+          Next
+        </p-button>
+      </div>
+    </div>
+
+    <!-- Dialog -->
+    <p-dialog header="Invoice No {{invoiceDetails?.invoiceNo}}" [(visible)]="showProjectDialog" [modal]="true"
+      [closable]="true" [styleClass]="'dark:bg-gray-800 dark:text-white'">
+      <!-- Dialog content -->
+    </p-dialog>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+<!-- <app-header-bar></app-header-bar> -->
+
+
+<main class="">
+
+  <app-invoice-upload></app-invoice-upload>
+
+  <section class="bg-neutral-secondary-soft rounded-base p-0 mb-8">
+
+    <div class="mt-4 p-4 border border-default rounded-base bg-neutral-primary">
+      <h2 class="text-heading text-xl font-semibold mb-4">File Operations</h2>
+
+      <div class="flex flex-wrap gap-3 mb-6">
+        <button pButton icon="pi pi-paperclip" label="Add Attachment" class="p-button-text" (click)="fileInput.click()">
+        </button>
+
+        <button pButton icon="pi pi-key" label="Decrypt File" class="p-button-text" (click)="decryptFile()"
+          [disabled]="!selectedFileName">
+        </button>
+
+        <button (click)="handleSaveClick()"
+          class="bg-blue-500 text-white font-semibold py-2 px-4 rounded flex items-center justify-center hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          [disabled]="isLoading">
+          <span *ngIf="!isLoading && !isSuccess" class="text-sm" id="buttonText">Save File</span>
+          <span *ngIf="isLoading"
+            class="spinner-border animate-spin ml-2 w-5 h-5 border-4 border-white rounded-full border-t-transparent"></span>
+          <span *ngIf="isSuccess" class="text-green-500 ml-2 text-xl">&#10004;</span>
+        </button>
+      </div>
+
+      @if (displayFiles.length > 0) {
+      <div class="flex flex-wrap gap-2">
+        <div *ngFor="let file of displayFiles; let i = index"
+          class="bg-blue-100 text-blue-600 p-2 rounded-full flex items-center space-x-2">
+          <a href="javascript:void(0)" download target="_self" class="text-primary underline"
+            (click)="downloadFile(file)">
+            <span>{{ file.filE_NAME }}</span>
+          </a>
+
+          <button (click)="removeFile(i)" class="text-red-500 hover:text-red-700">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x"
+              viewBox="0 0 16 16">
+              <path
+                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 6.293l2.646-2.647a.5.5 0 1 1 .708.708L8.707 7l2.647 2.646a.5.5 0 1 1-.708.708L8 7.707l-2.646 2.647a.5.5 0 1 1-.708-.708L7.293 7 4.646 4.646a.5.5 0 0 1 0-.708z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      }
+
+    </div>
+
+    <input type="file" #fileInput hidden (change)="onFileSelected($event); " multiple accept="*/*"
+      aria-label="Select file to upload" />
+
+
+    <div *ngIf="selectedFileName" class="mt-4 p-4 border border-default rounded-base bg-neutral-primary">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <strong class="text-heading block mb-1">File Name:</strong>
+          <span class="text-body">{{ selectedFileName }}</span>
+        </div>
+        <div>
+          <strong class="text-heading block mb-1">File Type:</strong>
+          <span class="text-body">{{ fileType }}</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>

@@ -1,0 +1,83 @@
+<p-table [value]="data" [tableStyle]="{ 'min-width': '60rem' }" styleClass="p-datatable-sm dark:p-datatable-dark border p-2">
+
+    <!-- HEADER -->
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="text-muted-foreground dark:text-gray-300 font-semibold bg-primary/5 dark:bg-gray-700/80  text-left"
+                *ngFor="let col of columns">
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+
+    <!-- BODY -->
+    <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
+        <tr class="hover:bg-accent/50 transition-colors" (click)="emitSelectedItem(row)">
+
+            <!-- Invoice No -->
+            <td
+                class="text-muted-foreground dark:text-gray-300 font-semibold bg-primary/5 dark:bg-gray-700/80 p-3 text-left">
+                {{ row.INVOICE_NO }}</td>
+
+            <!-- Date -->
+            <td
+                class="text-muted-foreground dark:text-gray-300 font-semibold bg-primary/5 dark:bg-gray-700/80 p-3 text-left">
+                {{ row.INVOICE_DATE | date:'dd/MM/yyyy' }}
+            </td>
+
+            <!-- Customer -->
+            <td
+                class="text-muted-foreground dark:text-gray-300 font-semibold bg-primary/5 dark:bg-gray-700/80 p-3 text-left">
+                {{ row.CUSTOMER_NAME }}</td>
+
+            <!-- Warehouse -->
+            <td
+                class="text-muted-foreground dark:text-gray-300 font-semibold bg-primary/5 dark:bg-gray-700/80 p-3 text-left">
+                {{ row.WAREHOUSE_CODE }}</td>
+
+            <!-- Status -->
+            <td
+                class="text-muted-foreground dark:text-gray-300 font-semibold bg-primary/5 dark:bg-gray-700/80 p-3 text-left">
+                <p-tag [value]="getStatusLabel(row.STATUS_FLAG)" [severity]="getStatusSeverity(row.STATUS_FLAG)"
+                    class="capitalize">
+                </p-tag>
+            </td>
+
+            <!-- Category -->
+            <td
+                class="text-muted-foreground dark:text-gray-300 font-semibold bg-primary/5 dark:bg-gray-700/80 p-3 text-left">
+                {{ row.CAREGORY }}</td>
+
+            <!-- Notes -->
+            <td
+                class="text-muted-foreground dark:text-gray-300 font-semibold bg-primary/5 dark:bg-gray-700/80 p-3 text-left">
+                <input pInputText placeholder="Add Notes" [(ngModel)]="row.notes" class="h-8 text-sm w-full"
+                    class="h-8 text-sm bg-background/30 dark:bg-gray-900/50 border-border/30 dark:border-gray-600 text-foreground dark:text-white placeholder:text-muted-foreground dark:placeholder:text-gray-500 focus:border-primary/50 dark:focus:border-primary/70 focus:ring-1 focus:ring-primary/30 dark:focus:ring-primary/50 w-full">
+            </td>
+
+            <!-- Actions -->
+            <td
+                class="text-muted-foreground dark:text-gray-300 font-semibold bg-primary/5 dark:bg-gray-700/80 p-3 text-left">
+                <div class="flex items-center gap-2">
+
+                    <p-button size="small"
+                        class="h-8 w-20 bg-primary hover:bg-primary/90 dark:bg-primary/80 dark:hover:bg-primary text-primary-foreground dark:text-white text-xs shadow-sm dark:shadow-gray-900/50">
+                        <i class="p-2 pi pi-upload mr-1"></i>
+                        Upload
+                    </p-button>
+                    <p-button icon="pi pi-eye" size="small" [text]="true" (onClick)="viewDetails(row)">
+                    </p-button>
+
+
+                </div>
+            </td>
+
+            <!-- Entered By -->
+            <td
+                class="text-muted-foreground dark:text-gray-300 font-semibold bg-primary/5 dark:bg-gray-700/80 p-3 text-left">
+                {{ row.CREATED_BY }}</td>
+
+        </tr>
+    </ng-template>
+
+</p-table>

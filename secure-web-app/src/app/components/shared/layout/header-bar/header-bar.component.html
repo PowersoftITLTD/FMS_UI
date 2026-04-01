@@ -1,0 +1,73 @@
+<nav class="bg-neutral-primary   w-full z-20 top-0 start-0 border-b border-default bg-blue">
+  <div class="container mx-auto ">
+    <div class="flex items-center justify-between py-4 px-8">
+      <a href="/"
+        class="flex items-center space-x-3 rtl:space-x-reverse focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 rounded-base">
+        <span class="self-center text-xl text-heading font-semibold whitespace-nowrap">Hello, Hitesh</span>
+      </a>
+      <button data-collapse-toggle="navbar-default" type="button"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
+        aria-controls="navbar-default" aria-expanded="false" aria-label="Toggle navigation menu">
+        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+          viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
+        </svg>
+      </button>
+      <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+        <ul class="font-medium flex flex-col md:flex-row md:space-x-8 rtl:space-x-reverse">
+          <!-- Loop through menu items -->
+          <li *ngFor="let item of menuItems; let i = index">
+            <a [class]="getMenuItemClasses(item)" 
+              (click)="onMenuItemClick(item)">
+              {{ item.label }}
+            </a>
+          </li>
+
+          <!-- Logout menu item (separate from the loop) -->
+          <li>
+            <a class="block profile-pic text-heading rounded hover:bg-neutral-tertiary 
+                      md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 
+                      focus:outline-none focus:ring-2 focus:ring-brand rounded-base">
+              <span #triggerElement (mouseenter)="showPanel()" class="cursor-pointer">
+                <span class="text-font">HG</span>
+              </span>
+            </a>
+          </li>
+       
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Move the overlay panel outside the nav, but keep it in the same component -->
+<p-overlayPanel #op styleClass="header-overlay" [dismissable]="false" appendTo="body"  class="pr-{5}">
+  <div class="overlay-content" (mouseenter)="onPanelMouseEnter()" (mouseleave)="onPanelMouseLeave()">
+    <div class="roles-title">Account</div>
+      <div class="account-header">
+      <!-- <img src="https://via.placeholder.com/40" alt="Profile Picture" class="profile-pic" /> -->
+      <div class="account-info">
+        <div class="account-name">{{userName}}</div>
+        <div class="account-email" [title]="userEmail">{{ userEmail }}</div>
+      </div>
+    </div>
+
+           <br class="divider" />
+
+    <div class="logout-section">
+      <a class="logout-link cursor-pointer text-blue-600" routerLink="/change-password">
+        <span class="logout-icon"><i class="pi pi-key settings-icon "></i></span>
+         Change password
+      </a>
+    </div>
+       <hr class="divider" />
+
+    <div class="logout-section">
+      <a class="logout-link cursor-pointer text-blue-600" (click)="logout()">
+        <span class="logout-icon"><i class="pi pi-sign-out settings-icon"></i></span>
+        Logout
+      </a>
+    </div>
+  </div>
+</p-overlayPanel>

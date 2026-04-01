@@ -1,0 +1,93 @@
+// ================================
+//  OVERLAY TOGGLE BUTTON
+// ================================
+.outline-overlay-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+
+  i {
+    font-size: 1rem;
+    color: #555;
+  }
+
+  &:hover {
+    background: #e9e9e9;
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+}
+
+// ================================
+//  PRIME NG OVERLAY PANEL
+// ================================
+.task-add {
+  padding: 0 !important;
+  border-radius: 6px;
+  overflow: hidden;
+
+  .p-overlaypanel-content {
+    padding: 0 !important;
+  }
+}
+
+// ================================
+//  DROPDOWN LIST
+// ================================
+.dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .dropdown-list-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #333;
+    transition: background 0.15s ease;
+
+    i {
+      font-size: 1rem;
+      color: #555;
+    }
+
+    &:hover {
+      background: #f4f4f4;
+    }
+
+    // fix ellipsis behavior when long text
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    // spacing when badge is shown
+    p-badge {
+      margin-left: auto;
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner-border {
+  animation: spin 1s linear infinite;
+}
+
+/* Component SCSS/CSS file */
+
+

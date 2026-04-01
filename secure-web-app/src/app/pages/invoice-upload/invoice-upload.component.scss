@@ -1,0 +1,156 @@
+/* Dark mode base */
+.dark {
+  color-scheme: dark;
+}
+
+/* Theme transition */
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease !important;
+}
+
+/* PrimeNG Dark Mode Overrides */
+.dark .p-card {
+  background: rgba(30, 41, 59, 0.8);
+  color: #f1f5f9;
+  border-color: #334155;
+}
+
+.dark .p-datatable .p-datatable-thead > tr > th {
+  background: #1e293b !important;
+  color: #94a3b8 !important;
+  border-color: #334155 !important;
+}
+
+.dark .p-datatable .p-datatable-tbody > tr {
+  background: rgba(30, 41, 59, 0.5);
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+.dark .p-datatable .p-datatable-tbody > tr:hover {
+  background: rgba(51, 65, 85, 0.5) !important;
+}
+
+.dark .p-inputtext {
+  background: rgba(15, 23, 42, 0.5);
+  border-color: #475569;
+  color: #f1f5f9;
+}
+
+.dark .p-inputtext:enabled:hover {
+  border-color: #64748b;
+}
+
+.dark .p-inputtext:enabled:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5);
+}
+
+.dark .p-dropdown {
+  background: rgba(15, 23, 42, 0.5);
+  border-color: #475569;
+  color: #f1f5f9;
+}
+
+.dark .p-dropdown-panel {
+  background: #1e293b;
+  border-color: #475569;
+}
+
+.dark .p-dropdown-item {
+  color: #f1f5f9;
+}
+
+.dark .p-dropdown-item:hover {
+  background: #334155;
+}
+
+.dark .p-dropdown .p-dropdown-label {
+  color: #f1f5f9;
+}
+
+.dark .p-calendar .p-datepicker {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+.dark .p-datepicker table td > span {
+  color: #f1f5f9;
+}
+
+.dark .p-datepicker table td.p-datepicker-today > span {
+  background: #3b82f6;
+  color: white;
+}
+
+.dark .p-datepicker table td > span.p-highlight {
+  background: #3b82f6;
+  color: white;
+}
+
+.dark .p-button {
+  &.p-button-primary {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    
+    &:hover {
+      background: #2563eb;
+      border-color: #2563eb;
+    }
+  }
+  
+  &.p-button-secondary {
+    background: #64748b;
+    border-color: #64748b;
+    color: #f1f5f9;
+    
+    &:hover {
+      background: #475569;
+      border-color: #475569;
+    }
+  }
+}
+
+.dark .p-dialog {
+  background: #1e293b;
+  color: #f1f5f9;
+  border-color: #334155;
+}
+
+.dark .p-dialog .p-dialog-header {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+.dark .p-dialog .p-dialog-content {
+  background: #1e293b;
+  color: #f1f5f9;
+}
+
+/* Custom scrollbar for dark mode */
+.dark ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 5px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+
+.p-card .p-card-content {
+  padding: 0 !important;
+}

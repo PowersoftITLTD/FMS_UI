@@ -1,0 +1,109 @@
+<!-- 1. Added transition, ease, and overflow-hidden -->
+<div class="sidebar  dark:bg-gray-700/80 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out overflow-hidden flex flex-col h-full" 
+    [ngClass]="collapsed ? 'w-[60px]' : 'w-60'">
+  
+  <!-- Header -->
+  <!-- Header -->
+  <!-- Logic: px-4 when open, px-2.5 when collapsed to fit the 40px icon in 60px width -->
+  <div class="py-4 border-gray-200 dark:border-gray-700 flex items-center shrink-0 transition-all duration-300"
+       [ngClass]="collapsed ? 'px-[10px] justify-center' : 'px-4 gap-3'">
+    
+    <!-- Text Content -->
+    <div class="transition-all duration-300 whitespace-nowrap" 
+         [ngClass]="!collapsed ? 'opacity-100 w-auto' : 'opacity-0 w-0 pointer-events-none hidden'">
+      <span class="block font-semibold">FMS</span>
+      <span class="block text-xs text-gray-500 dark:text-gray-400">Dashboard</span>
+    </div>
+
+    <!-- Toggle Button (L) -->
+    <!-- Logic: ml-auto only when NOT collapsed -->
+    <div (click)="toggleSidebar()"
+         class="h-10 w-10 dark:bg-gray-700/80 shrink-0 flex items-center justify-center rounded-xl bg-primary text-white font-bold shadow-md cursor-pointer transition-all duration-300"
+         [ngClass]="{'ml-auto': !collapsed}">
+      L
+    </div>
+
+  </div>
+
+
+  <!-- Menu -->
+  <div class="p-2 flex-grow overflow-y-auto overflow-x-hidden">
+    <div class="text-gray-400 uppercase text-xs font-medium tracking-wider mb-2 px-3 transition-all duration-300 whitespace-nowrap"
+         [ngClass]="{'opacity-100': !collapsed, 'opacity-0': collapsed}">
+         Main Menu
+    </div>
+    <ul>
+      <li *ngFor="let item of menuItems">
+        <a [routerLink]="item.url"
+           class="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-gray-200 dark:hover:bg-gray-800"
+           [ngClass]="{'bg-gray-200 dark:bg-gray-800 font-medium': isActive(item.url)}"
+           [pTooltip]="collapsed ? item.title : ''" tooltipPosition="right">
+          <i [class]="item.icon + ' w-5 h-5 shrink-0'"></i>
+          <!-- 3. Smooth text fade -->
+          <span class="transition-all duration-300 whitespace-nowrap"
+                [ngClass]="{'opacity-100 w-auto': !collapsed, 'opacity-0 w-0 invisible': collapsed}">
+            {{item.title}}
+          </span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="mt-6 text-gray-400 uppercase text-xs font-medium tracking-wider mb-2 px-3 transition-all duration-300 whitespace-nowrap"
+         [ngClass]="{'opacity-100': !collapsed, 'opacity-0': collapsed}">
+         Settings
+    </div>
+    <ul>
+      <li *ngFor="let item of settingsItems">
+        <a [routerLink]="item.url"
+           class="flex items-center gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-gray-200 dark:hover:bg-gray-800"
+           [ngClass]="{'bg-gray-200 dark:bg-gray-800 font-medium': isActive(item.url)}"
+           [pTooltip]="collapsed ? item.title : ''" tooltipPosition="right">
+          <i [class]="item.icon + ' w-5 h-5 shrink-0'"></i>
+          <span class="transition-all duration-300 whitespace-nowrap"
+                [ngClass]="{'opacity-100 w-auto': !collapsed, 'opacity-0 w-0 invisible': collapsed}">
+            {{item.title}}
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Footer -->
+  <div class="p-4 border-t border-gray-200 dark:border-gray-700 flex items-center gap-3 mt-auto shrink-0">
+    <div class="h-9 w-9 shrink-0 flex items-center justify-center rounded-full bg-gray-300 dark:bg-gray-700 text-sm font-medium">JD</div>
+    <div class="transition-all duration-300 whitespace-nowrap"
+         [ngClass]="{'opacity-100 w-auto': !collapsed, 'opacity-0 w-0 invisible': collapsed}">
+      <span class="block text-sm font-medium">{{userName}}</span>
+      <span class="block text-xs text-gray-500 dark:text-gray-400">{{userRole}}</span>
+    </div>
+    
+    <!-- Theme toggle - optionally hide when collapsed if space is tight -->
+    <!-- <button (click)="toggleTheme()" 
+            class="ml-auto relative w-12 h-6 shrink-0 rounded-full bg-gray-300 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 focus:outline-none transition-all duration-300"
+            [class.scale-0]="collapsed" [class.w-0]="collapsed" [class.ml-0]="collapsed">
+      <div class="absolute top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full bg-white dark:bg-gray-300 transition-all duration-300" 
+           [class.left-1]="!isDarkMode" [class.left-7]="isDarkMode"></div>
+    </button> -->
+           <div class="ml-auto relative w-12 h-6 shrink-0 rounded-full bg-gray-300 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 focus:outline-none transition-all duration-300">
+          <!-- Theme Toggle Button -->
+          <button (click)="toggleTheme()"
+            class="relative w-12 h-6 rounded-full bg-gray-300 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all duration-300 flex-shrink-0"
+            [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'"
+            pTooltip="{{isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}}" tooltipPosition="bottom">
+
+            <div
+              class="absolute top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full bg-white dark:bg-gray-300 transition-all duration-300 shadow-md"
+              [class.left-1]="!isDarkMode" [class.left-7]="isDarkMode">
+            </div>
+
+            <i class="pi pi-sun absolute left-1.5 top-1/2 -translate-y-1/2 text-amber-500 text-xs"
+              [class.opacity-100]="!isDarkMode" [class.opacity-30]="isDarkMode">
+            </i>
+            <i class="pi pi-moon absolute right-1.5 top-1/2 -translate-y-1/2 text-blue-400 text-xs"
+              [class.opacity-100]="isDarkMode" [class.opacity-30]="!isDarkMode">
+            </i>
+          </button>
+
+      </div>
+  </div>
+</div>
